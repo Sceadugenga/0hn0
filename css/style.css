@@ -196,6 +196,17 @@ p {
   background-size: auto 100%;
   background-position: center center;
 }
+
+#solveButton {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  padding-bottom: 20 px;
+  text-align:center;
+  color: #000; font-size: 300%;
+  cursor: pointer;
+ }
+
 #back.icon { background-image: url(../img/close.png); }
 #retry.icon { background-image: url(../img/loop.png); }
 #undo.icon { background-image: url(../img/history.png); }
@@ -208,6 +219,7 @@ p {
 #apps.icon { background-image: url(../img/mobile.png); }
 
 #bar {
+  display: none;
   position: absolute;
   bottom: 0; right: 0;
   width: 100%;
