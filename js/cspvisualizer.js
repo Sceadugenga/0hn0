@@ -19,18 +19,12 @@ CspVisualizer.prototype.play = function() {
 	
 	var delay = parseInt($("#solveDelay option:selected").val());
 	
-	if (delay == 0) {
-		this.__render();
-		this.i++;
-		this.play();
-	} else {
-		var context = this; 
-		setTimeout(function() {
-			context.__render();
-			context.i++;
-			context.play();
-		}, delay);
-	}
+	var context = this; 
+	setTimeout(function() {
+		context.__render();
+		context.i++;
+		context.play();
+	}, delay);
 }
 
 
