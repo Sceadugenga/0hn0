@@ -268,7 +268,7 @@ var Game = new (function() {
     $('#boardsize').html('<span>Select a size</span>');
     $('#menugrid').removeClass('hidden');
     $('#board').addClass('hidden');
-	$('#solveButton').hide();
+	$('#solveBar').hide();
     $('#bar [data-action]').not('[data-action="back"]').hide();
     if (continueLastGame && !currentPuzzle.isTutorial) {
       $('[data-action="continue"]').show().addClass('subtleHintOnce');
@@ -319,7 +319,7 @@ var Game = new (function() {
     $('#undo').closest('.iconcon').css('display', 'inline-block');
     $('#menugrid').addClass('hidden');
     $('#board').removeClass('hidden');
-	$('#solveButton').show();
+	$('#solveBar').show();
     $('#bar [data-action]').show();
     $('#bar [data-action="continue"]').hide();
     $('#tweeturl, #facebook, [data-action="apps"]').hide();

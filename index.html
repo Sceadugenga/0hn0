@@ -215,7 +215,17 @@
                     <span id="seconds-r"></span>
                 </span>
             </div>
-			<div id="solveButton">Solve</div>
+			<div id="solveBar">
+				<span id="solveButton">Solve</span> 			
+				<select id="solveDelay">
+					<option value="0">0 ms</option>
+					<option value="10">10 ms</option>
+					<option value="30">30 ms</option>
+					<option value="50">50 ms</option>
+					<option value="150">150 ms</option>
+					<option value="1000">1 s</option>
+				</select>
+			</div>
             <div id="bar">
                 
 				<div class="iconcon" data-action="back"><div id="back" class="icon"></div></div>
@@ -255,6 +265,7 @@
     <script type="text/javascript" src="js/levels.js"></script>
     <script type="text/javascript" src="js/backgroundservice.js"></script>
     <script type="text/javascript" src="js/storage.js"></script>
+	<script type="text/javascript" src="js/cspvisualizer.js"></script>
 	<script type="text/javascript" src="js/cspsolver.js"></script>
   </body>
 </html>

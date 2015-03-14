@@ -1,7 +1,9 @@
 $("#solveButton").click(function() {
 	$(this).hide();
+	window.cspVisualizer = new CspVisualizer();
 	var solver = Create0hn0CspSolver(window.Game.grid);
 	solver.solve();
+	window.cspVisualizer.play();
 	$(this).show();
 });
 
@@ -66,13 +68,7 @@ CspTileVariable.prototype.getDomain = function() {
 
 CspTileVariable.prototype.setValue = function(value) {
 	this.value = value;
-	if (value == "BLUE") {
-		this.renderTile.dot();
-	} else if (value == "RED") {
-		this.renderTile.wall();
-	} else {
-		this.renderTile.unknown();
-	}
+	window.cspVisualizer.addEvent(this.renderTile, value);
 };
 
 
