@@ -47,6 +47,7 @@ CspSolver.prototype.__solve = function(indexToAssign) {
 		}
 		var forwardCheckResult = this.__doForwardChecking(indexToAssign);
 		if (forwardCheckResult.success) {
+			this.__reorderUnassigned(indexToAssign);
 			if (this.__solve(indexToAssign+1)) {
 				return true;
 			}
@@ -64,7 +65,6 @@ CspSolver.prototype.__doForwardChecking = function(indexOfLastAssigned) {
 		var domainReduction = this.__reduceVariableDomain(i);
 		domainReductions = domainReductions.concat(domainReduction);
 		if (this.variables[i].getDomain().length == 0) {
-			console.log("fw pruned");
 			return {success: false, domainReductions: domainReductions};
 		}
 	}
@@ -95,5 +95,17 @@ CspSolver.prototype.__restoreDomains = function(domainReductions) {
 	for (var i = 0; i < domainReductions.length; i++) {
 		var domain = domainReductions[i][0].getDomain();
 		domain[domain.length] = domainReductions[i][1];
+	}
+}
+
+
+CspSolver.prototype.__reorderUnassigned = function(indexOfLastAssigned) {
+	var unassigned = this.variables.slice(indexOfLastAssigned+1);
+	unassigned.sort(function(a, b) {
+		var domDiff =  a.getDomain().length - b.getDomain().length;
+		return (domDiff == 0 ? b.getConstraints().length - a.getConstraints().length : domDiff); 
+	});
+	for (var i = 0; i < unassigned.length; i++) {
+		this.variables[indexOfLastAssigned + 1 + i] = unassigned[i];
 	}
 }
