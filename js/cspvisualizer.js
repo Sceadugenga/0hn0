@@ -33,7 +33,7 @@ CspVisualizer.prototype.play = function() {
 
 
 CspVisualizer.prototype.stop = function() {
-	this.i = this.events.length;
+	this.i = this.events.length - 1;
 }
 
 

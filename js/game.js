@@ -642,7 +642,10 @@ var Game = new (function() {
         gameEnded = true;
         break;
       case 'back':
-        if (inGame && inText)
+        if ("cspVisualizer" in window) {
+			window.cspVisualizer.stop();
+		}
+		if (inGame && inText)
           return doAction('show-game');
         if (gameEnded || Tutorial.active) 
           return doAction('show-menu');
