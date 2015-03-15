@@ -22,8 +22,10 @@ CspSolver.prototype.solve = function() {
 		} else if (a.getValue() !== null && b.getValue() === null) {
 			return -1;
 		}
-		// The rest of the variables is sorted according to the most constrained first heuristics.
-		return a.getConstraints().length - b.getConstraints().length; 
+		// The rest of the variables is sorted according to the most restricted domain and 
+		// most constrained first heuristics.
+		var domDiff =  a.getDomain().length - b.getDomain().length;
+		return (domDiff == 0 ? b.getConstraints().length - a.getConstraints().length : domDiff); 
 	});
 	
 	var startIndex = this.variables.reduce(
