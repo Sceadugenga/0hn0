@@ -269,7 +269,7 @@ var Game = new (function() {
     $('#menugrid').removeClass('hidden');
     $('#board').addClass('hidden');
 	$('#solveBar').hide();
-    $('#bar [data-action]').not('[data-action="back"]').hide();
+	$('#bar [data-action]').not('[data-action="back"]').hide();
     if (continueLastGame && !currentPuzzle.isTutorial) {
       $('[data-action="continue"]').show().addClass('subtleHintOnce');
     }
@@ -319,8 +319,7 @@ var Game = new (function() {
     $('#undo').closest('.iconcon').css('display', 'inline-block');
     $('#menugrid').addClass('hidden');
     $('#board').removeClass('hidden');
-	$('#solveBar').show();
-    $('#bar [data-action]').show();
+	$('#bar [data-action]').show();
     $('#bar [data-action="continue"]').hide();
     $('#tweeturl, #facebook, [data-action="apps"]').hide();
     $('#chooseSize').removeClass('show');
@@ -354,6 +353,12 @@ var Game = new (function() {
     undoStack = [];
     undone = false;
     gameEnded = false;
+	
+	if (!currentPuzzle.isTutorial) {
+		$('#solveBar').show();
+    } else {
+		$('#solveBar').hide();
+	}
 
     if (!puzzle.isTutorial) window.Marker && Marker.save('level', 'start', puzzle.size);
 
