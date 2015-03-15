@@ -2,6 +2,7 @@ CSP Solver for 0hn0
 ===================
 Seminar work for Combinatorial Optimisation (RM35KO) course at FEE CTU in Prague.
 
+Written by [Jan Brabec](http://blog.honzabrabec.cz)
 
 0h n0
 =====
