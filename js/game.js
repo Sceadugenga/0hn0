@@ -17,7 +17,7 @@ var Game = new (function() {
       showAppsIcon = window.isWebApp,
       startedTutorial = false,
       grid,
-      sizes = [5,6,7,8],
+      sizes = [5,6,8,12],
       lastSize = 0,
       currentPuzzle = null,
       checkTOH = 0,
@@ -274,7 +274,7 @@ var Game = new (function() {
       $('[data-action="continue"]').show().addClass('subtleHintOnce');
     }
     $('#board').addClass('hidden');
-    $('#score').show();
+    $('#score').hide();
     setTimeout(function() {
       if (grid) grid.clear();
       $('#score').addClass('show');
