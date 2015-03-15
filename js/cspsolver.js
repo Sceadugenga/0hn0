@@ -40,12 +40,58 @@ CspSolver.prototype.__solve = function(indexToAssign) {
 	var domain = variable.getDomain();
 	for (var id in domain) {
 		variable.setValue(domain[id]);
-		if (!variable.getConstraints().some(function(c) { return !c.isSatisfied(); })) {
+		if (variable.getConstraints().some(function(c) { return !c.isSatisfied(); })) {
+			continue;
+		}
+		var forwardCheckResult = this.__doForwardChecking(indexToAssign);
+		if (forwardCheckResult.success) {
 			if (this.__solve(indexToAssign+1)) {
 				return true;
 			}
 		}
+		this.__restoreDomains(forwardCheckResult.domainReductions);
 	}
 	variable.setValue(null);
 	return false;
 };
+
+
+CspSolver.prototype.__doForwardChecking = function(indexOfLastAssigned) {
+	var domainReductions = [];
+	for (var i = indexOfLastAssigned + 1; i < this.variables.length; i++) {
+		var domainReduction = this.__reduceVariableDomain(i);
+		domainReductions = domainReductions.concat(domainReduction);
+		if (this.variables[i].getDomain().length == 0) {
+			console.log("fw pruned");
+			return {success: false, domainReductions: domainReductions};
+		}
+	}
+	return {success: true, domainReductions: domainReductions};
+}
+
+
+CspSolver.prototype.__reduceVariableDomain = function(i) {
+	var variable = this.variables[i];
+	var domain = variable.getDomain();
+	var newDomain = [];
+	var domainReduction = [];
+	for (var id in domain) {
+		variable.setValue(domain[id]);
+		if (variable.getConstraints().some(function(c) { return !c.isSatisfied(); })) {
+			domainReduction[domainReduction.length] = [variable, domain[id]];
+		} else {
+			newDomain[newDomain.length] = domain[id];
+		}
+		variable.setValue(null);
+	}
+	variable.setDomain(newDomain);
+	return domainReduction;
+}
+
+
+CspSolver.prototype.__restoreDomains = function(domainReductions) {
+	for (var i = 0; i < domainReductions.length; i++) {
+		var domain = domainReductions[i][0].getDomain();
+		domain[domain.length] = domainReductions[i][1];
+	}
+}

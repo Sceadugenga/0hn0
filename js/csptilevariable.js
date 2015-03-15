@@ -25,6 +25,11 @@ CspTileVariable.prototype.getDomain = function() {
 };
 
 
+CspTileVariable.prototype.setDomain = function(domain) {
+	this.domain = domain;
+};
+
+
 CspTileVariable.prototype.getRenderTile = function() {
 	return this.renderTile;
 };
