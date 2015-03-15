@@ -1,11 +1,13 @@
 $("#solveButton").click(function() {
-	$(this).hide();
-	window.cspVisualizer = new CspVisualizer();
 	var solver = Create0hn0CspSolver(window.Game.grid);
-	//TODO: add time measure and number of steps
+	window.cspVisualizer = new CspVisualizer(solver.getVariables());
+	var t0 = performance.now();
 	solver.solve();
-	window.cspVisualizer.play();
-	$(this).show();
+	var t1 = performance.now();
+	$("#solveBar").hide();
+	console.log("Solve took " + (t1 - t0) + " milliseconds.");
+	console.log("Solve took " + window.cspVisualizer.length() + " steps.");
+	setTimeout(function() { window.cspVisualizer.play(); }, 10);
 });
 
 

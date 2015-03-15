@@ -25,6 +25,11 @@ CspTileVariable.prototype.getDomain = function() {
 };
 
 
+CspTileVariable.prototype.getRenderTile = function() {
+	return this.renderTile;
+};
+
+
 CspTileVariable.prototype.setValue = function(value) {
 	this.value = value;
 	window.cspVisualizer.addEvent(this.renderTile, value);

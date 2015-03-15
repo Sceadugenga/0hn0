@@ -4,6 +4,16 @@ function CspSolver(variables, constraints) {
 }
 
 
+CspSolver.prototype.getVariables = function() {
+	return this.variables;
+};
+
+
+CspSolver.prototype.getConstraints = function() {
+	return this.constraints;
+};
+
+
 CspSolver.prototype.solve = function() {
 	this.variables.sort(function(a, b) {
 		// Already assigned variables should be first. The following ensures it.
@@ -23,7 +33,6 @@ CspSolver.prototype.solve = function() {
 
 
 CspSolver.prototype.__solve = function(indexToAssign) { 
-     //Forward checking probably needed. for 8*8
 	if (indexToAssign == this.variables.length) {
 		return true;
 	}

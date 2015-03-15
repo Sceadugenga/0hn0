@@ -1,9 +1,9 @@
 // Plays the events at the selected interval.
-// It would also be cool to add scrollbar but that would be just an eye candy.
 
-function CspVisualizer() {
+function CspVisualizer(variables) {
 	this.events = [];
 	this.i = 0;
+	this.variables = variables;
 }
 
 
@@ -20,14 +20,11 @@ CspVisualizer.prototype.play = function() {
 	var delay = parseInt($("#solveDelay option:selected").val());
 	
 	if (delay == 0) {
-		while (this.i < this.events.length) {
-			this.__render();
-			this.i++;
-		}
+		this.__showFinalAssignment();
 	} else {
 		var context = this; 
 		setTimeout(function() {
-			context.__render();
+			context.__render(context.events[context.i][0], context.events[context.i][1]);
 			context.i++;
 			context.play();
 		}, delay);
@@ -40,12 +37,26 @@ CspVisualizer.prototype.stop = function() {
 }
 
 
-CspVisualizer.prototype.__render = function() {
-	if (this.events[this.i][1] == "BLUE") {
-		this.events[this.i][0].dot();
-	} else if (this.events[this.i][1] == "RED") {
-		this.events[this.i][0].wall();
+CspVisualizer.prototype.length = function() {
+	return this.events.length;
+}
+
+
+CspVisualizer.prototype.__render = function(tile, value) {
+	if (value == "BLUE") {
+		tile.dot();
+	} else if (value == "RED") {
+		tile.wall();
 	} else {
-		this.events[this.i][0].unknown();
+		tile.unknown();
+	}
+}
+
+
+CspVisualizer.prototype.__showFinalAssignment = function() {
+	for (var i = 0; i < this.variables.length; i++) {
+		if (this.variables[i].getRenderTile().type !== Tile.Type.Value) {
+			this.__render(this.variables[i].getRenderTile(), this.variables[i].getValue());
+		}			
 	}
 }
