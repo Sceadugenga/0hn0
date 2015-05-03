@@ -1,12 +1,13 @@
 $("#solveButton").click(function() {
+	var t0 = performance.now();
 	var solver = Create0hn0CspSolver(window.Game.grid);
 	window.cspVisualizer = new CspVisualizer(solver.getVariables());
-	var t0 = performance.now();
 	solver.solve();
 	var t1 = performance.now();
 	$("#solveBar").hide();
 	console.log("Solve took " + (t1 - t0) + " milliseconds.");
-	console.log("Solve took " + window.cspVisualizer.length() + " steps.");
+	console.log("Solve took " + window.cspVisualizer.length() + " steps. (event queue size)");
+	console.log("Solve took " + solver.getNumberOfRecursiveCalls() + " steps. (number of recursive calls)");
 	setTimeout(function() { window.cspVisualizer.play(); }, 10);
 });
 

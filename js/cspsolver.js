@@ -1,6 +1,7 @@
 function CspSolver(variables, constraints) {
 	this.variables = variables;
 	this.constraints = constraints;
+	this.numberOfRecursiveCalls = 0;
 }
 
 
@@ -11,6 +12,11 @@ CspSolver.prototype.getVariables = function() {
 
 CspSolver.prototype.getConstraints = function() {
 	return this.constraints;
+};
+
+
+CspSolver.prototype.getNumberOfRecursiveCalls = function() {
+	return this.numberOfRecursiveCalls;
 };
 
 
@@ -35,6 +41,7 @@ CspSolver.prototype.solve = function() {
 
 
 CspSolver.prototype.__solve = function(indexToAssign) { 
+	this.numberOfRecursiveCalls++;
 	if (indexToAssign == this.variables.length) {
 		return true;
 	}
