@@ -17,7 +17,7 @@ var Game = new (function() {
       showAppsIcon = window.isWebApp,
       startedTutorial = false,
       grid,
-      sizes = [5,6,8,12],
+      sizes = [5,7,8,12],
       lastSize = 0,
       currentPuzzle = null,
       checkTOH = 0,
